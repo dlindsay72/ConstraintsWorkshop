@@ -14,8 +14,8 @@ class ViewController: NSViewController {
         super.viewDidLoad()
 
     //    createVFL()
-        createAnchors()
-        
+    //    createAnchors()
+        createStackView()
     }
 
     override var representedObject: Any? {
@@ -86,6 +86,37 @@ class ViewController: NSViewController {
         //make the final view sit against the bottom edge of our main view
         previous.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    func createStackView() {
+        
+        //create a stack view from four views
+        let stackView = NSStackView(views: [makeView(0), makeView(1), makeView(2), makeView(3)])
+        
+        //make them take up an equal amount of space
+        stackView.distribution = .fillEqually
+        
+        //make the views line up vertically
+        stackView.orientation = .vertical
+        
+        //set this to false so we can create our own Auto Layout constraints
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(stackView)
+        
+        for view in stackView.arrangedSubviews {
+            view.setContentHuggingPriority(1, for: .horizontal)
+            view.setContentHuggingPriority(1, for: .vertical)
+        }
+        
+        //make the stackView sit directly against all four edges
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        stackView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+    
+    }
+    
+    
 }
 
 
